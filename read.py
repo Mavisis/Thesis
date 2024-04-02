@@ -24,13 +24,24 @@ import open3d as o3d
 
 huts = PointCloud.from_path('01_01.pcd')
 arr = huts.numpy(("x", "y", "z", "label"))
+# for label_value in range(17):
+#     indices = np.where(arr[:, 3] == label_value)
+#     points_with_current_label = arr[indices]
+#     # print(points_with_label_6)
+#     pcd = PointCloud.from_xyzl_points(points_with_current_label, label_type=np.uint32)
+#     filename = f"points_with_label_{label_value}.pcd"
+#     # pcd.save(filename)
+
+voxel_sizes = {0: 0.005, 1: 0.05, 2: 0.5}
+voxel_grid = {}
 for label_value in range(17):
-    indices = np.where(arr[:, 3] == label_value)
-    points_with_current_label = arr[indices]
-    # print(points_with_label_6)
-    pcd = PointCloud.from_xyzl_points(points_with_current_label, label_type=np.uint32)
-    filename = f"points_with_label_{label_value}.pcd"
-    # pcd.save(filename)
+    for voxel_size in voxel_sizes:
+        indices = np.where(arr[:, 3] == label_value)
+        points_with_current_label = arr[indices]
+
+        #
+        pcd = PointCloud.from_xyzl_points(points_with_current_label, label_type=np.uint32)
+        filename = f"points_with_label_{label_value}.pcd"
 
 
 
