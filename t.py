@@ -1,6 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from pypcd4 import PointCloud
+
+huts = PointCloud.from_path('01_01.pcd')
+arr = huts.numpy(("x", "y", "z", "label"))
+
 
 def create_voxel_grid(points, voxel_size):
     # Determine the range of the points
@@ -21,9 +26,16 @@ def create_voxel_grid(points, voxel_size):
 
     return voxel_grid
 
-# Generate some random point cloud data
-num_points = 1000
-points = np.random.rand(num_points, 3)
+
+# ####Generate some random point cloud data
+# num_points = 1000
+# points = np.random.rand(num_points, 3)
+# print(points)
+
+# #####data
+# points = PointCloud.from_points('01_01.pcd', ["x", "y", "z", "label"], [np.float32, np.float32, np.float32])
+
+points = arr[:, :3]
 
 # Define voxel size
 voxel_size = 0.1
