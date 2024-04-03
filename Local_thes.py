@@ -36,17 +36,19 @@ class Bridge:
         # print(voxel_grid)
         # position = self.loadFile.point.positions
         # print(position, "/n")
+        print(type(voxel_grid))
         return voxel_grid
 
     def draw(self):
         o3d.visualization.draw_geometries([self.loadFile], window_name='Origional data', width=1800, height=1080)
         o3d.visualization.draw_geometries([self.voxelize()], window_name='Voxelized data', width=1800, height=1080)
-        print((np.array(self.loadFile.points)))
-        pass
+        # print((np.array(self.loadFile.points)))
+
+
 # pass the return from def voxelize as a parameter into the draw function
 
 if __name__ == "__main__":
-    build = Bridge(('finalwork.pcd'), 0.5)
+    build = Bridge(('01_01.pcd'), 0.05)
     build.voxelize()
     build.draw()
 
