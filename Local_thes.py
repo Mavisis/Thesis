@@ -7,48 +7,26 @@ import laspy
 
 
 class Bridge:
-    def __init__(self, file, vox_size):
-        self.loadFile = o3d.io.read_point_cloud(file)
-        self.tfile = o3d.t.geometry.PointCloud(o3c.Tensor([[0,0,0],[1,1,1]], o3c.float32))
-        self.length_loadFile = len(self.loadFile.points)
+    def __init__(self, file, file2, vox_size, vox_size2):
+        self.loadFile1 = o3d.io.read_point_cloud(file)
+        self.loadFile2 = o3d.io.read_point_cloud(file2)
+
         self.vox_size = vox_size
-        self.map_to_tensors = {}
+        self.vox_size2 = vox_size2
 
-
-    def reading(self, file):
-        readz = open(file)
-        readz.read()
-        print(readz)
 
     def voxelize(self):
-        voxel_grid = o3d.geometry.VoxelGrid.create_from_point_cloud(self.loadFile, voxel_size=self.vox_size)
-        # print(len(voxel_grid.points))
-        # print(self.loadFile)
-        # print(np.array(self.loadFile.points))
-        # self.map_to_tensors["FIELDS"] = o3c.Tensor([0,1], o3c.int64)
-        # labels = self.tfile.point.labels = o3c.Tensor([0,1], o3c.int64)
-        # print(labels)
-        # test = o3d.t.geometry.PointCloud(self.map_to_tensors)
-
-        # print( self.map_to_tensors)
-        # print("test:", test)
-        # print("voxel size:", self.vox_size)
-        # print(voxel_grid)
-        # position = self.loadFile.point.positions
-        # print(position, "/n")
-        print(type(voxel_grid))
-        return voxel_grid
+        voxel_grid = o3d.geometry.VoxelGrid.create_from_point_cloud(self.loadFile1, voxel_size=self.vox_size)
+        voxel_grid2 = o3d.geometry.VoxelGrid.create_from_point_cloud(self.loadFile2, voxel_size=self.vox_size2)
+        return voxel_grid, voxel_grid2
 
     def draw(self):
-        o3d.visualization.draw_geometries([self.loadFile], window_name='Origional data', width=1800, height=1080)
+        # o3d.visualization.draw_geometries([self.loadFile], window_name='Origional data', width=1800, height=1080)
         o3d.visualization.draw_geometries([self.voxelize()], window_name='Voxelized data', width=1800, height=1080)
         # print((np.array(self.loadFile.points)))
 
-
-# pass the return from def voxelize as a parameter into the draw function
-
 if __name__ == "__main__":
-    build = Bridge(('01_01.pcd'), 0.05)
+    build = Bridge(('points_with_label_1.pcd'), 0.5, ('points_with_label_6.pcd'), 1)
     build.voxelize()
     build.draw()
 

@@ -2,10 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pypcd4 import PointCloud
 
-huts = PointCloud.from_path('01_01.pcd')
-arr = huts.numpy(("x", "y", "z", "label"))
+label_6 = PointCloud.from_path('points_with_label_6.pcd')
+label_1 = PointCloud.from_path('points_with_label_1.pcd')
+arr1 = label_1.numpy(("x", "y", "z", "label"))
+arr6 = label_6.numpy(("x", "y", "z", "label"))
+
 def create_voxel_grid(points, voxel_size):
     # Determine the range of the points
+
     min_bound = np.min(points, axis=0)
     max_bound = np.max(points, axis=0)
 
@@ -34,14 +38,8 @@ def visualize():
     plt.show()
 
 
-
-
-
-# Example usage within the loop over label values
-for label_value in range(17):
-
-    voxel_size = 1*label_value+1
+voxel_square_size = 1
 
 # voxel_grid = create_voxel_grid(arr[:, :3], voxel_size)
-voxel_grid = create_voxel_grid(arr[:, :3], voxel_size)
+voxel_grid = create_voxel_grid(arr1[:, :3], voxel_square_size)
 visualize()

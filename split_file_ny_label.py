@@ -10,4 +10,4 @@ for label_value in range(17):
     # print(points_with_label_6)
     pcd = PointCloud.from_xyzl_points(points_with_current_label, label_type=np.uint32)
     filename = f"points_with_label_{label_value}.pcd"
-    # pcd.save(filename)
+    pcd.save(filename)
